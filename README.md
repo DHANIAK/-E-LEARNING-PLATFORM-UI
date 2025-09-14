@@ -81,9 +81,14 @@ A **multi-page**, fully **styled and interactive front-end** of an e-learning pl
    * Overview of completed courses and progress bars
   
    **OUTPUT**
+
+<img width="1870" height="923" alt="Image" src="https://github.com/user-attachments/assets/428aee0c-b9f3-4e73-833b-cefd4a7b0013" />
+
+<img width="1892" height="931" alt="Image" src="https://github.com/user-attachments/assets/6e672e07-756d-408b-a2c1-5066f2f749bc" />
+
+<img width="1913" height="936" alt="Image" src="https://github.com/user-attachments/assets/afdbf111-ff3a-4d8e-9e4f-373f954223fa" />
    
 
 
 
 
-Would you like a **starter template** for the files or a **GitHub README file** based on this description?
