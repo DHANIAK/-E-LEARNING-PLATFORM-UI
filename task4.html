@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>E-Learning Platform</title>
+  <style>
+    body {
+      background: #f5f6fc;
+      font-family: "Inter", Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+    .navbar {
+      background: #2d2b55;
+      padding: 1rem 2rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+    .navbar-logo {
+      font-weight: bold;
+      font-size: 1.5rem;
+      letter-spacing: 2px;
+    }
+    .navbar-links a {
+      color: #fff;
+      margin-left: 2rem;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.2s;
+    }
+    .navbar-links a:hover,
+    .navbar-links a.active {
+      color: #ffd700;
+    }
+    .app-content {
+      margin: 2rem auto;
+      max-width: 1100px;
+      width: 100%;
+    }
+    h1, h2, h3 { color: #2d2b55; }
+    /* Home Page */
+    .home-hero {
+      background: linear-gradient(90deg, #2d2b55 60%, #ffd700 120%);
+      color: #fff;
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      margin-bottom: 2.5rem;
+      text-align: center;
+      box-shadow: 0 4px 28px rgba(44,43,85,0.13);
+      position: relative;
+    }
+    .home-hero h1 {
+      color: #ffd700;
+      font-size: 2.5rem;
+      margin-bottom: 0.7rem;
+    }
+    .home-hero p {
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+    }
+    .home-hero .hero-btns {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+    .hero-btn {
+      background: #ffd700;
+      color: #2d2b55;
+      border: none;
+      padding: 0.9rem 2rem;
+      font-size: 1.15rem;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      box-shadow: 0 2px 8px rgba(44,43,85,0.07);
+      margin-bottom: 0.8rem;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .hero-btn:hover {
+      background: #2d2b55;
+      color: #ffd700;
+    }
+    .home-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      margin-bottom: 2.5rem;
+    }
+    .feature-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(44,43,85,0.11);
+      padding: 1.5rem 1.3rem;
+      min-width: 260px;
+      max-width: 350px;
+      flex: 1 1 290px;
+      text-align: center;
+    }
+    .feature-card h3 {
+      color: #2d2b55;
+      margin-bottom: 0.5rem;
+    }
+    .feature-card p {
+      color: #444;
+      font-size: 1.05rem;
+    }
+    .trending-courses {
+      margin-top: 2rem;
+    }
+    .trending-courses h2 {
+      color: #2d2b55;
+      margin-bottom: 1rem;
+    }
+    .trending-courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(230px,1fr));
+      gap: 1.5rem;
+    }
+    .trending-card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(44,43,85,0.10);
+      padding: 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: box-shadow 0.15s;
+    }
+    .trending-card:hover {
+      box-shadow: 0 4px 22px rgba(44,43,85,0.17);
+    }
+    .trending-card img {
+      border-radius: 8px;
+      width: 100%;
+      height: 130px;
+      object-fit: cover;
+      margin-bottom: .6rem;
+    }
+    .trending-card h4 {
+      margin: 0.2rem 0 0.6rem 0;
+      color: #2d2b55;
+    }
+    .trending-card .yt-channel {
+      font-size: 0.98rem;
+      color: #999;
+      margin-bottom: 0.3rem;
+      display: block;
+    }
+    /* Course List */
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+      gap: 2rem;
+      margin-top: 1.5rem;
+    }
+    .course-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(44,43,85,0.12);
+      text-decoration: none;
+      color: #222;
+      padding: 1rem;
+      transition: box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+    }
+    .course-card:hover {
+      box-shadow: 0 8px 24px rgba(44,43,85,0.18);
+    }
+    .course-card img {
+      width: 100%;
+      border-radius: 10px;
+      object-fit: cover;
+      height: 170px;
+      margin-bottom: 1rem;
+    }
+    .course-info h2 { margin: 0.5rem 0 0.2rem 0; font-size: 1.2rem; }
+    .course-info p { color: #555; font-size: 1rem; }
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: #eee;
+      border-radius: 4px;
+      margin: 0.7rem 0 0.2rem 0;
+      overflow: hidden;
+    }
+    .progress {
+      background: #ffd700;
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.4s;
+    }
+    .progress-text { font-size: 0.9rem; color: #666; }
+    /* Course Detail */
+    .course-detail {
+      max-width: 700px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(44,43,85,0.13);
+    }
+    .course-detail .desc {
+      font-size: 1.1rem;
+      color: #444;
+      margin-bottom: 1.5rem;
+    }
+    .video-container {
+      width: 100%;
+      margin-bottom: 1.5rem;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+    .lessons { list-style: none; padding: 0; margin: 1rem 0 1.5rem 0; }
+    .lessons li {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid #eee;
+      font-size: 1.05rem;
+    }
+    .duration { color: #888; font-size: 0.97rem; }
+    /* Dashboard */
+    .dashboard {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    .progress-courses {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(320px,1fr));
+      gap: 2rem;
+    }
+    .progress-card {
+      display: flex;
+      align-items: center;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 12px rgba(44,43,85,0.11);
+      padding: 1.2rem;
+      text-decoration: none;
+      color: #232323;
+      transition: box-shadow 0.2s;
+      cursor: pointer;
+    }
+    .progress-card:hover {
+      box-shadow: 0 8px 28px rgba(44,43,85,0.17);
+    }
+    .progress-card img {
+      width: 90px;
+      height: 60px;
+      object-fit: cover;
+      margin-right: 1.2rem;
+      border-radius: 5px;
+    }
+    .hidden { display: none; }
+    @media (max-width: 700px) {
+      .app-content, .course-detail, .dashboard { padding: 0.5rem; }
+      .home-hero { font-size: 1.1rem; padding: 1.2rem 0.5rem;}
+      .home-features { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-logo">E-Learn</div>
+    <div class="navbar-links">
+      <a href="#home" id="nav-home" class="active">Home</a>
+      <a href="#courses" id="nav-courses">Courses</a>
+      <a href="#dashboard" id="nav-dashboard">Dashboard</a>
+    </div>
+  </nav>
+  <div class="app-content">
+    <!-- Home Page -->
+    <div id="home-page">
+      <div class="home-hero">
+        <h1>Welcome to E-Learn!</h1>
+        <p>
+          Your one-stop E-learning platform for mastering programming, design, business, and more.<br>
+          <span style="color:#ffd700;">10,000+ users</span> are learning new skills every day!
+        </p>
+        <div class="hero-btns">
+          <a href="#courses" class="hero-btn">Browse Courses</a>
+          <a href="#dashboard" class="hero-btn">My Dashboard</a>
+          <a href="#trending" class="hero-btn">Trending Courses</a>
+        </div>
+      </div>
+      <div class="home-features">
+        <div class="feature-card">
+          <h3>🎬 Video Courses</h3>
+          <p>Watch, pause, and resume interactive video lessons from top instructors and channels.</p>
+        </div>
+        <div class="feature-card">
+          <h3>📈 Progress Tracking</h3>
+          <p>Track your progress, set goals, and earn badges as you complete lessons.</p>
+        </div>
+        <div class="feature-card">
+          <h3>🔍 Search & Filter</h3>
+          <p>Find courses by topic, difficulty, or channel. Never miss the right course for you.</p>
+        </div>
+        <div class="feature-card">
+          <h3>🌟 Trending Now</h3>
+          <p>Access the most popular, highly rated, and in-demand courses curated for you.</p>
+        </div>
+        <div class="feature-card">
+          <h3>📝 Quizzes & Reviews</h3>
+          <p>Assess your knowledge with quick quizzes and share reviews with peers.</p>
+        </div>
+      </div>
+      <div class="trending-courses" id="trending">
+        <h2>🔥 Trending YouTube Courses</h2>
+        <div class="trending-courses-grid" id="trending-courses-list"></div>
+      </div>
+    </div>
+    <!-- Course List -->
+    <div id="courses-page" class="hidden">
+      <h1>Available Courses</h1>
+      <div class="courses-grid" id="courses-list"></div>
+    </div>
+    <!-- Dashboard -->
+    <div id="dashboard-page" class="hidden">
+      <h1>My Progress</h1>
+      <div class="progress-courses" id="dashboard-list"></div>
+    </div>
+    <!-- Course Detail -->
+    <div id="course-detail-page" class="hidden"></div>
+  </div>
+  <script>
+    // --- 10 YouTube courses ---
+    const trendingCourses = [
+      {
+        id: "201",
+        title: "Python for Beginners",
+        ytChannel: "Programming with Mosh",
+        videoId: "rfscVS0vtbw",
+        thumbnail: "https://img.youtube.com/vi/rfscVS0vtbw/0.jpg"
+      },
+      {
+        id: "202",
+        title: "JavaScript Full Course",
+        ytChannel: "freeCodeCamp.org",
+        videoId: "PkZNo7MFNFg",
+        thumbnail: "https://img.youtube.com/vi/PkZNo7MFNFg/0.jpg"
+      },
+      {
+        id: "203",
+        title: "React JS Crash Course",
+        ytChannel: "Traversy Media",
+        videoId: "w7ejDZ8SWv8",
+        thumbnail: "https://img.youtube.com/vi/w7ejDZ8SWv8/0.jpg"
+      },
+      {
+        id: "204",
+        title: "HTML & CSS Full Course",
+        ytChannel: "SuperSimpleDev",
+        videoId: "G3e-cpL7ofc",
+        thumbnail: "https://img.youtube.com/vi/G3e-cpL7ofc/0.jpg"
+      },
+      {
+        id: "205",
+        title: "Node.js Tutorial for Beginners",
+        ytChannel: "Programming with Mosh",
+        videoId: "TlB_eWDSMt4",
+        thumbnail: "https://img.youtube.com/vi/TlB_eWDSMt4/0.jpg"
+      },
+      {
+        id: "206",
+        title: "Machine Learning Crash Course",
+        ytChannel: "freeCodeCamp.org",
+        videoId: "Gv9_4yMHFhI",
+        thumbnail: "https://img.youtube.com/vi/Gv9_4yMHFhI/0.jpg"
+      },
+      {
+        id: "207",
+        title: "UI/UX Design Course",
+        ytChannel: "AJ&Smart",
+        videoId: "3YgVghoEcQ4",
+        thumbnail: "https://img.youtube.com/vi/3YgVghoEcQ4/0.jpg"
+      },
+      {
+        id: "208",
+        title: "Android App Development",
+        ytChannel: "CodeWithChris",
+        videoId: "EcfUOeFdLFw",
+        thumbnail: "https://img.youtube.com/vi/EcfUOeFdLFw/0.jpg"
+      },
+      {
+        id: "209",
+        title: "C++ Tutorial for Beginners",
+        ytChannel: "ProgrammingKnowledge",
+        videoId: "vLnPwxZdW4Y",
+        thumbnail: "https://img.youtube.com/vi/vLnPwxZdW4Y/0.jpg"
+      },
+      {
+        id: "210",
+        title: "Excel Full Course",
+        ytChannel: "Learnit Training",
+        videoId: "aWBG1Qd5c5M",
+        thumbnail: "https://img.youtube.com/vi/aWBG1Qd5c5M/0.jpg"
+      }
+    ];
+
+    // --- Platform sample courses (for Dashboard/Course List) ---
+    const courses = [
+      {
+        id: "1",
+        title: "React for Beginners",
+        desc: "Kickstart your React journey.",
+        progress: 40,
+        thumbnail: "https://img.youtube.com/vi/dGcsHMXbSOA/0.jpg",
+        videoId: "dGcsHMXbSOA",
+        lessons: [
+          { title: "Introduction to React", duration: "10:45" },
+          { title: "JSX and Components", duration: "14:32" },
+          { title: "State and Props", duration: "12:50" },
+          { title: "Hooks Basics", duration: "11:20" },
+        ],
+      },
+      {
+        id: "2",
+        title: "Advanced JavaScript",
+        desc: "Master the intricacies of JS.",
+        progress: 75,
+        thumbnail: "https://img.youtube.com/vi/PkZNo7MFNFg/0.jpg",
+        videoId: "PkZNo7MFNFg",
+        lessons: [
+          { title: "Closures", duration: "13:15" },
+          { title: "Promises", duration: "15:25" },
+          { title: "Async/Await", duration: "18:10" },
+          { title: "Modules & Tooling", duration: "12:05" },
+        ],
+      },
+      {
+        id: "3",
+        title: "UI/UX Design Principles",
+        desc: "Design beautiful user interfaces.",
+        progress: 10,
+        thumbnail: "https://img.youtube.com/vi/3YgVghoEcQ4/0.jpg",
+        videoId: "3YgVghoEcQ4",
+        lessons: [
+          { title: "Color Theory", duration: "9:50" },
+          { title: "Typography", duration: "8:40" },
+          { title: "Layout and Spacing", duration: "12:00" },
+          { title: "User Testing", duration: "14:30" },
+        ],
+      },
+      {
+        id: "4",
+        title: "Python for Beginners",
+        desc: "Learn Python from scratch.",
+        progress: 70,
+        thumbnail: "https://img.youtube.com/vi/rfscVS0vtbw/0.jpg",
+        videoId: "rfscVS0vtbw",
+        lessons: [
+          { title: "Getting Started", duration: "15:30" },
+          { title: "Variables & Data Types", duration: "12:40" },
+          { title: "Control Flow", duration: "17:00" },
+        ],
+      }
+    ];
+
+    // Utility: Routing
+    function showPage(page) {
+      document.getElementById("home-page").classList.add("hidden");
+      document.getElementById("courses-page").classList.add("hidden");
+      document.getElementById("dashboard-page").classList.add("hidden");
+      document.getElementById("course-detail-page").classList.add("hidden");
+      document.getElementById("nav-home").classList.remove("active");
+      document.getElementById("nav-courses").classList.remove("active");
+      document.getElementById("nav-dashboard").classList.remove("active");
+      if (page === "home") {
+        document.getElementById("home-page").classList.remove("hidden");
+        document.getElementById("nav-home").classList.add("active");
+      } else if (page === "courses") {
+        document.getElementById("courses-page").classList.remove("hidden");
+        document.getElementById("nav-courses").classList.add("active");
+      } else if (page === "dashboard") {
+        document.getElementById("dashboard-page").classList.remove("hidden");
+        document.getElementById("nav-dashboard").classList.add("active");
+      } else if (page === "course-detail") {
+        document.getElementById("course-detail-page").classList.remove("hidden");
+      }
+    }
+
+    // Render Trending Courses (YouTube)
+    function renderTrendingCourses() {
+      const list = document.getElementById("trending-courses-list");
+      list.innerHTML = "";
+      trendingCourses.forEach(tc => {
+        const card = document.createElement("div");
+        card.className = "trending-card";
+        card.onclick = function() {
+          // Go to detail (YouTube embed + info)
+          renderTrendingCourseDetail(tc);
+        };
+        card.innerHTML = `
+          <img src="${tc.thumbnail}" alt="${tc.title}" />
+          <h4>${tc.title}</h4>
+          <span class="yt-channel">${tc.ytChannel}</span>
+          <button class="hero-btn" style="margin-top:0.6rem;font-size:1rem;">Watch</button>
+        `;
+        list.appendChild(card);
+      });
+    }
+
+    // Render Trending Course Detail
+    function renderTrendingCourseDetail(tc) {
+      const page = document.getElementById("course-detail-page");
+      page.innerHTML = `
+        <h1>${tc.title}</h1>
+        <span class="yt-channel" style="font-size:1.1rem;">by ${tc.ytChannel}</span>
+        <div class="video-container" style="margin-top:1rem;">
+          <iframe width="100%" height="400" src="https://www.youtube.com/embed/${tc.videoId}"
+            title="${tc.title}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+        <br>
+        <button class="hero-btn" onclick="location.hash='home'">Back to Home</button>
+      `;
+      showPage("course-detail");
+      window.scrollTo(0, 0);
+    }
+
+    // Render Course List
+    function renderCourseList() {
+      const list = document.getElementById("courses-list");
+      list.innerHTML = "";
+      courses.forEach(course => {
+        const card = document.createElement("div");
+        card.className = "course-card";
+        card.onclick = () => {
+          location.hash = "course-" + course.id;
+        };
+        card.innerHTML = `
+          <img src="${course.thumbnail}" alt="${course.title}" />
+          <div class="course-info">
+            <h2>${course.title}</h2>
+            <p>${course.desc}</p>
+            <div class="progress-bar">
+              <div class="progress" style="width: ${course.progress}%;"></div>
+            </div>
+            <span class="progress-text">${course.progress}% completed</span>
+          </div>
+        `;
+        list.appendChild(card);
+      });
+    }
+
+    // Render Dashboard
+    function renderDashboard() {
+      const list = document.getElementById("dashboard-list");
+      list.innerHTML = "";
+      courses.forEach(course => {
+        const card = document.createElement("div");
+        card.className = "progress-card";
+        card.onclick = () => {
+          location.hash = "course-" + course.id;
+        };
+        card.innerHTML = `
+          <img src="${course.thumbnail}" alt="${course.title}" />
+          <div>
+            <h2>${course.title}</h2>
+            <div class="progress-bar">
+              <div class="progress" style="width: ${course.progress}%;"></div>
+            </div>
+            <span class="progress-text">${course.progress}% completed</span>
+          </div>
+        `;
+        list.appendChild(card);
+      });
+    }
+
+    // Render Course Detail (Platform)
+    function renderCourseDetail(courseId) {
+      const course = courses.find(c => c.id === courseId);
+      const page = document.getElementById("course-detail-page");
+      if (!course) {
+        page.innerHTML = `<div style="text-align:center;padding:2rem;"><h2>Course not found</h2><button class="hero-btn" onclick="location.hash='courses'">Go Back</button></div>`;
+        showPage("course-detail");
+        return;
+      }
+      let lessonsHtml = "";
+      course.lessons.forEach(lesson => {
+        lessonsHtml += `<li><span>${lesson.title}</span><span class="duration">${lesson.duration}</span></li>`;
+      });
+      page.innerHTML = `
+        <h1>${course.title}</h1>
+        <p class="desc">${course.desc}</p>
+        <div class="video-container">
+          <iframe width="100%" height="400" src="https://www.youtube.com/embed/${course.videoId}"
+            title="${course.title}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+        <h3>Lessons</h3>
+        <ul class="lessons">${lessonsHtml}</ul>
+        <div class="progress-bar">
+          <div class="progress" style="width:${course.progress}%"></div>
+        </div>
+        <span class="progress-text">${course.progress}% completed</span>
+        <br/><br/>
+        <button class="hero-btn" onclick="location.hash='courses'">Back to Courses</button>
+      `;
+      showPage("course-detail");
+      window.scrollTo(0, 0);
+    }
+
+    // Hash Routing
+    function handleHash() {
+      if (location.hash.startsWith("#dashboard")) {
+        showPage("dashboard");
+      } else if (location.hash.startsWith("#course-")) {
+        renderCourseDetail(location.hash.replace("#course-", ""));
+      } else if (location.hash.startsWith("#courses")) {
+        showPage("courses");
+      } else if (location.hash.startsWith("#home") || location.hash === "") {
+        showPage("home");
+      }
+    }
+    window.addEventListener("hashchange", handleHash);
+
+    // Navbar click handlers
+    document.getElementById("nav-home").onclick = function() {
+      location.hash = "home";
+      return false;
+    };
+    document.getElementById("nav-courses").onclick = function() {
+      location.hash = "courses";
+      return false;
+    };
+    document.getElementById("nav-dashboard").onclick = function() {
+      location.hash = "dashboard";
+      return false;
+    };
+
+    // Home trending course watch buttons
+    document.addEventListener("click", function(e) {
+      if (e.target && e.target.matches(".trending-card .hero-btn")) {
+        e.preventDefault();
+        // Find course
+        let parent = e.target.closest(".trending-card");
+        if (!parent) return;
+        let idx = Array.from(parent.parentNode.children).indexOf(parent);
+        if (idx >= 0) renderTrendingCourseDetail(trendingCourses[idx]);
+      }
+    });
+
+    // Home hero section buttons
+    document.addEventListener("click", function(e) {
+      if (e.target && e.target.matches(".hero-btn")) {
+        // If anchor with href="#courses" or "#dashboard" etc.
+        if (e.target.hash) {
+          location.hash = e.target.hash.substring(1);
+        }
+      }
+    });
+
+    // Initial render
+    renderTrendingCourses();
+    renderCourseList();
+    renderDashboard();
+    handleHash();
+  </script>
+</body>
+</html>
